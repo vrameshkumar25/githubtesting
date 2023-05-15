@@ -1,0 +1,30 @@
+name: terraform
+on:
+  push:
+    branches:
+      - dev
+      - release/**
+      - master
+    tags:
+      - "v*"
+
+jobs:
+  get-env:
+    name: Get environment
+    runs-on: ubuntu-latest
+    outputs:
+      phase: ${{ steps.setvars.outputs.phase }}
+    steps:
+      - name: Set variables
+        id: setvars
+        run: |
+          TARGET_BRANCH=${GITHUB_REF#refs/*/}
+          echo "TARGET_BRANCH:: $TARGET_BRANCH"
+          declare -A ENV_MAP=(["master"]="prod" ["release/**"]="test" ["dev"]="dev")
+          TARGET_ENV=${ENV_MAP[$TARGET_BRANCH]}
+          echo "TARGET_ENV :: $TARGET_ENV"
+          if [ -z $TARGET_ENV ]; then
+            echo "ENV_MAP does not have value for target branch $TARGET_BRANCH";
+            exit 1;
+          fi
+          echo "::set-output name=phase::$TARGET_ENV"
