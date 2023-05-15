@@ -18,7 +18,7 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-              echo "GITHUB_BASE_REF: ${GITHUB_BASE_REF}
+              echo "GITHUB_BASE_REF: ${GITHUB_BASE_REF}"
               if [ ${GITHUB_BASE_REF} == "master" ]; then
                 echo "::set-output name=phase::prod"
               elif [[ ${GITHUB_BASE_REF} == release/* ]]; then
