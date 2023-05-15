@@ -20,7 +20,7 @@ jobs:
         run: |
           TARGET_BRANCH=${GITHUB_REF#refs/*/}
           echo "TARGET_BRANCH:: $TARGET_BRANCH"
-          declare -A ENV_MAP=(["master"]="prod" ["release/**"]="test" ["dev"]="dev")
+          declare -A ENV_MAP=(["master"]="prod" ["release/*"]="test" ["dev"]="dev")
           TARGET_ENV=${ENV_MAP[$TARGET_BRANCH]}
           echo "TARGET_ENV :: $TARGET_ENV"
           if [ -z $TARGET_ENV ]; then
