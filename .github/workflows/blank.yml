@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - dev
-      - release/**
+      - 'release/**'
       - master
     tags:
       - "v*"
