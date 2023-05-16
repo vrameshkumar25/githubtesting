@@ -26,3 +26,8 @@ jobs:
               elif [[ ${GITHUB_BASE_REF} == "dev" ]]; then
                 echo "::set-output name=phase::dev"
               fi
+      - name: check variables
+        shell: bash
+        run: |
+          echo "value of phase is :: ${{ steps.setvars.outputs.phase }}"
+
